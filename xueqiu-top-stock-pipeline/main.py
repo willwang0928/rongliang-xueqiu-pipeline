@@ -1,11 +1,13 @@
-import config, csv_store
-from parser import parse_posts
-from xueqiu import fetch_discussion_posts, fetch_hot_stocks
+import config
+from storage import db
+from scraping.parser import parse_posts
+from scraping.xueqiu import fetch_discussion_posts, fetch_hot_stocks
 
 from playwright.sync_api import sync_playwright
 import time
 
 def main():
+    connection = db.get_connection()
     while True:
         with sync_playwright() as p:
             start = time.perf_counter()
@@ -33,15 +35,11 @@ def main():
                 end = time.perf_counter()
                 print(end-start)
             
-            existing_keys = csv_store.load_existing_keys(config.CSV_FILE)
-            new_rows = []
-            for row in stocks:
-                check = (row['stock'], row['date'], row['name'])
-                if check not in existing_keys:
-                    new_rows.append(row)
-            
-            csv_store.store(new_rows, config.CSV_FILE)
-            print(f'Saved {len(new_rows)} posts to {config.CSV_FILE}')
+            start = time.perf_counter()
+            saved_count = db.store(stocks, connection)
+            end = time.perf_counter()
+            print(end-start)
+            print(f'Saved {saved_count} new posts')
         
             browser.close()
             

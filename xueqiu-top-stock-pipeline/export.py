@@ -1,8 +1,11 @@
-import config, csv_store, excel
+import config
+from storage import db, excel
 
-rows = csv_store.load_all_rows(config.CSV_FILE)
+connection = db.get_connection()
+cursor = connection.cursor()
+cursor.execute("SELECT stock, name, date, content FROM disc_posts ORDER BY stock ASC, date DESC")
 
-rows.sort(key=lambda row: row['date'], reverse=True) 
-rows.sort(key=lambda row: row['stock'])
+raw_rows = cursor.fetchall()
 
+rows = [dict(zip(excel.COLUMNS, row)) for row in raw_rows]
 excel.save_posts(rows, config.OUTPUT_FILE)

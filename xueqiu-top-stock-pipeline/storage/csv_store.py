@@ -1,5 +1,5 @@
 import csv
-from excel import COLUMNS
+from storage.excel import COLUMNS
 
 def store(rows, csv_file):
     does_file_exist = csv_file.exists()
