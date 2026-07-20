@@ -1,3 +1,6 @@
 playwright==1.61.0
 beautifulsoup4==4.15.0
 openpyxl==3.1.5
+tushare==1.4.29
+pandas==3.0.3
+mplfinance==0.12.10b0

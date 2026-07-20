@@ -23,6 +23,7 @@ def main():
             
             
             config.STOCK = fetch_hot_stocks(page)
+            hot_stocks = db.set_hot_stocks(config.STOCK, connection)
             stocks = []
             for stock in config.STOCK:
                 start = time.perf_counter()

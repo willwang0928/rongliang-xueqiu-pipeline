@@ -11,3 +11,5 @@ POSTS_PER_PAGE = 20
 
 RECHECK_INTERVAL_SECONDS = 300
 
+DB_FILE = folder / "disc.db"
+

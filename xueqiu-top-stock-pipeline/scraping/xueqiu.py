@@ -15,7 +15,7 @@ def fetch_hot_stocks(page):
     stocks = []
     for href in hrefs:
         code = href.split("/S/")[1]
-        if code not in stocks:
+        if code not in stocks and code.startswith(('SH', 'SZ')):
             stocks.append(code)
     end = time.perf_counter()
     print(end-start)

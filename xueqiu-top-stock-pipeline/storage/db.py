@@ -1,7 +1,8 @@
 import sqlite3
+import config
 
 def get_connection():
-    with sqlite3.connect('disc.db') as connection:
+    with sqlite3.connect(config.DB_FILE) as connection:
         cursor = connection.cursor()
         cursor.execute(
             """
@@ -14,6 +15,13 @@ def get_connection():
             )
             """
         
+        )
+        
+        cursor.execute(
+            """CREATE TABLE IF NOT EXISTS hot_stocks(
+                "stock" TEXT PRIMARY KEY
+                )
+            """
         )
         return connection
     
@@ -28,3 +36,17 @@ def store(rows, connection):
         running_total += cursor.rowcount
     connection.commit()
     return running_total
+
+def set_hot_stocks(rows, connection):
+    cursor = connection.cursor()
+    
+    cursor.execute(
+        "DELETE FROM hot_stocks"
+    )
+    
+    for row in rows:
+        cursor.execute(
+            "INSERT OR IGNORE INTO hot_stocks (stock) VALUES (?)",
+            (row,) 
+        )
+    connection.commit()
