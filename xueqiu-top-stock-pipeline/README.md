@@ -1,6 +1,6 @@
-# Xueqiu Hot-Stock Discussion Pipeline
+# Xueqiu Hot-Stock Pipeline
 
-A Python pipeline that scrapes the currently trending stocks and their discussion threads from [Xueqiu](https://xueqiu.com) (雪球) — a Chinese social investing platform — stores everything in SQLite, and provides an interactive tool to chart price history for any of the currently hot stocks.
+A Python pipeline built around the currently trending stocks on [Xueqiu](https://xueqiu.com) (雪球) — a Chinese social investing platform. It scrapes the hot-stock list and each stock's discussion threads into SQLite, then lets you pull up an interactive candlestick chart — with a closing-price line and a 5-day moving-average line overlaid — for any of those same currently hot stocks.
 
 ## What it does
 
@@ -8,7 +8,7 @@ A Python pipeline that scrapes the currently trending stocks and their discussio
 2. **Scrapes** the discussion/comment feed for each of those stocks.
 3. **Stores** posts in a local SQLite database, deduplicated so repeated runs never create duplicate rows.
 4. **Tracks** the current hot-stock list separately from historical post data, so downstream tools always reflect "what's hot right now," not an accumulation of every stock ever seen.
-5. **Visualizes** price history as a candlestick chart (with a 5-day moving average) for any currently hot stock, using live market data from Tushare.
+5. **Charts** price history for any currently hot stock as a candlestick graph, with a closing-price line and a 5-day moving-average line overlaid, using live market data from Tushare.
 6. **Exports** the full discussion history to Excel on demand.
 
 ## Why it's built this way
