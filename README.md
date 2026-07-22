@@ -67,7 +67,10 @@ CREATE TABLE hot_stocks (
 
 ## Setup
 
+All commands below are run from the `xueqiu-top-stock-pipeline/` directory:
+
 ```bash
+cd xueqiu-top-stock-pipeline
 pip install -r requirements.txt
 playwright install chromium
 ```
